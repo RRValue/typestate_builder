@@ -33,7 +33,7 @@ mod traits {
     impl BuildState for Send {}
 }
 
-// make staes and trait easy reachable
+// make states and trait easy reachable
 use states::{Start, Status, Headers, Body, Send};
 use traits::BuildState;
 
@@ -110,11 +110,10 @@ impl<S> HttpResponseBuilder<S>
     where S: BuildState
 {
     // private helper function transform from one state to another
-    fn into<T>(self) -> HttpResponseBuilder<T>
-        where T: BuildState {
+    fn into<T>(self) -> HttpResponseBuilder<T> where T: BuildState {
         HttpResponseBuilder{
             data: self.data, 
             state: PhantomData
-        }
+        }   
     }
 }
