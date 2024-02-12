@@ -70,7 +70,7 @@ impl HttpResponseBuilder<Headers> {
     // set header data, can be called multpile times. Return builder in state Header
     pub fn add_header(mut self, header: String) -> HttpResponseBuilder<Headers> {
         self.data.header.push(header);
-        self.into()
+        self
     }
 
     // Say header are done, can be called once. Return builder in stateBody
@@ -103,13 +103,9 @@ impl<S> HttpResponseBuilder<S>
 
         self
     }
-}
 
-#[doc(hidden)]
-impl<S> HttpResponseBuilder<S>
-    where S: BuildState
-{
     // private helper function transform from one state to another
+    #[doc(hidden)]
     fn into<T>(self) -> HttpResponseBuilder<T> where T: BuildState {
         HttpResponseBuilder{
             data: self.data, 
